@@ -28,6 +28,7 @@ class ProductManager {
     return this.products;
   }
 
+  // VALIDACION PARA PRODUCTOS NO ENCONTRADOS:
   getProductById(id) {
     const product = this.products.find(p => p.id === id);
     if (product) {
@@ -39,7 +40,6 @@ class ProductManager {
 }
 
 // EJEMPLO
-
 const manager = new ProductManager();
 
 manager.addProduct({
@@ -62,5 +62,6 @@ manager.addProduct({
 
 console.log(manager.getProducts());
 
+console.log(manager.getProductById(1));
 console.log(manager.getProductById(2));
 console.log(manager.getProductById(3));
