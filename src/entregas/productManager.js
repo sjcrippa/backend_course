@@ -17,17 +17,17 @@ class productManager {
       await this.saveProductsToFile(products);
       return newProduct;
     } catch (error) {
-      throw new Error('Error adding product: ' + error.message);
+      throw new Error('Error agregando prod: ' + error.message);
     }
   }
 
-  // visualizar productos
+  // Obteniendo el producto
   async getProducts() {
     try {
       const products = await this.getProductsFromFile();
       return products;
     } catch (error) {
-      throw new Error('Error getting products: ' + error.message);
+      throw new Error('Error obteniendo prod: ' + error.message);
     }
   }
 
@@ -38,7 +38,7 @@ class productManager {
       const product = products.find((p) => p.id === id);
       return product || null;
     } catch (error) {
-      throw new Error('Error getting product by id: ' + error.message);
+      throw new Error('Error de ID del prod: ' + error.message);
     }
   }
 
@@ -50,12 +50,12 @@ class productManager {
       if (index !== -1) {
         products[index] = {
           ...updatedProduct,
-          id, // Ensure the id remains the same
+          id, // validando id
         };
         await this.saveProductsToFile(products);
         return products[index];
       } else {
-        throw new Error('Product not found');
+        throw new Error('Producto no encontrado');
       }
     } catch (error) {
       throw new Error('Error updating product: ' + error.message);
@@ -72,10 +72,10 @@ class productManager {
         await this.saveProductsToFile(products);
         return true;
       } else {
-        throw new Error('Product not found');
+        throw new Error('Producto no encontrado');
       }
     } catch (error) {
-      throw new Error('Error deleting product: ' + error.message);
+      throw new Error('Error eliominando producto: ' + error.message);
     }
   }
 
@@ -84,7 +84,7 @@ class productManager {
     try {
       const data = await fs.promises.readFile(this.path, 'utf-8');
       if (data.trim() === '') {
-        // Archivo vasio, devuelve array vacio
+        // Archivo vacio, devuelve array vacio
         return [];
       }
       return JSON.parse(data);
@@ -93,7 +93,7 @@ class productManager {
         // Archivo no encontrado, devuelve array vacio
         return [];
       } else {
-        throw new Error('Error reading file: ' + error.message);
+        throw new Error('Error leyendo archivo: ' + error.message);
       }
     }
   }
@@ -103,7 +103,7 @@ class productManager {
     try {
       await fs.promises.writeFile(this.path, JSON.stringify(products, null, 2));
     } catch (error) {
-      throw new Error('Error writing file: ' + error.message);
+      throw new Error('Error escribiendo archivo: ' + error.message);
     }
   }
 }
