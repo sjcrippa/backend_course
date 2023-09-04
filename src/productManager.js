@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-class productManager {
+export class productManager {
   constructor(filePath) {
     this.path = filePath;
   }
