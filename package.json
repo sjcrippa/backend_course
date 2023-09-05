@@ -1,5 +1,11 @@
 {
-  "dependencies": {
-    "express": "^4.18.2"
-  }
+  "name": "backend-course-ch",
+  "version": "1.0.0",
+  "description": "Acquired knowledge:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
 }
