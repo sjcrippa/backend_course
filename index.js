@@ -28,7 +28,7 @@ class ProductManager {
 
     // Agregar productos al arreglo
     this.products.push(product);
-    console.log('Product added');
+    console.log('Product added!');
   }
 
   // Obtener los productos
@@ -37,11 +37,11 @@ class ProductManager {
     return this.products
   }
 
-  // Obtener producto segun su Id
+  // Obtener producto segun su ID
   getProductById(id) {
     const product = this.products.find((p) => p.id === id);
     if (!product) {
-      console.log('Error: Producto no encontrado');
+      console.log('Error: Product not found');
     }
     return product;
   }
