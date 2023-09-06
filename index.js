@@ -31,11 +31,13 @@ class ProductManager {
     console.log('Product added');
   }
 
+  // Obtener los productos
   getProducts() {
     console.log(this.products);
     return this.products
   }
 
+  // Obtener producto segun su Id
   getProductById(id) {
     const product = this.products.find((p) => p.id === id);
     if (!product) {
