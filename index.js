@@ -1,34 +1,74 @@
-// Realizar una clase "ProductManager" que gestione un conjunto de productos. 
-// Debe crearse dedde su constructor con el elemento products, el cual sera un array vacio.
-// Cada producto que gestione debe contar con las sig. props:  title,description,price,thumbnail(url),code,stock
-// Metodos a agregar: 
-// addProduct: agregara un prod al arreglo de productos. Validar que no se repita el campo "code" y que todos los campos sean obligatorios. Al agregarlo, debe crearse con un id autoincrementable
-// getProducts: debe devolver un array con todos los prods creados hasta ese momento.
-// getProductById: debe buscar en el array el prod que coincida con el id. En caso de no coincidir ningun id, mostrar en consola, "error not found". 
-
 class ProductManager {
-    constructor() {
-        this.products = []
+  constructor() {
+    this.products = [];
+    this.nextProductId = 1
+  }
+  addProduct(product) {
+    // Validar que todos los campos sean obligatorios
+    if (
+      !product.title ||
+      !product.description ||
+      !product.price ||
+      !product.thumbnail ||
+      !product.code ||
+      !product.stock
+    ) {
+      console.log('Error: All fields are required');
+      return
     }
-    addProduct(title, description, price, thumbnail, code, stock) {
-        let id
-        if (!this.products.length) {
-            id = 1
-        } else {
-            
-        }
-        const product = {
-            id,
-            title,
-            description,
-            price,
-            thumbnail,
-            code,
-            stock
-        }
 
-        return product
+    // Validar que el campo "code" no se repita
+    if (this.products.some((p) => p.code === product.code)) {
+      console.log('Error: Code alredy exist');
+      return;
     }
+
+    // Asignar un ID autoincrementable al producto y luego agregarlo al arreglo
+    product.id = this.nextProductId++;
+
+    // Agregar productos al arreglo
+    this.products.push(product);
+    console.log('Product added');
+  }
+
+  getProducts() {
+    console.log(this.products);
+    return this.products
+  }
+
+  getProductById(id) {
+    const product = this.products.find((p) => p.id === id);
+    if (!product) {
+      console.log('Error: Producto no encontrado');
+    }
+    return product;
+  }
 }
+
+// Prueba de uso:
 const manager = new ProductManager
-console.log(manager);
+manager.addProduct({
+  title: 'Honda',
+  description: 'Civic',
+  price: 1230004,
+  thumbnail: 'imagen.jpg',
+  code: 'AAA001',
+  stock: 10
+})
+manager.addProduct({
+  title: 'Toyota',
+  description: 'Supra',
+  price: 1233344,
+  thumbnail: 'imagen.jpg',
+  code: 'AAA002',
+  stock: 10
+})
+manager.addProduct({
+  title: 'Renault',
+  description: 'Clio',
+  price: 1233,
+  thumbnail: 'imagen.jpg',
+  code: 'AAA003',
+  stock: 10
+})
+manager.getProducts()
