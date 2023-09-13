@@ -1,8 +1,10 @@
 class ProductManager {
   constructor() {
     this.products = [];
-    this.nextProductId = 1
   }
+
+  static nextProductId = 1
+
   addProduct(product) {
     // Validar que todos los campos sean obligatorios
     if (
@@ -24,7 +26,7 @@ class ProductManager {
     }
 
     // Asignar un ID autoincrementable al producto y luego agregarlo al arreglo
-    product.id = this.nextProductId++;
+    product.id = ProductManager.nextProductId++;
 
     // Agregar productos al arreglo
     this.products.push(product);
@@ -44,6 +46,38 @@ class ProductManager {
       console.log('Error: Product not found');
     }
     return product;
+  }
+  // Actualizar un producto por su ID
+  updateProduct(id, updatedProduct) {
+    const index = this.products.findIndex((p) => p.id === id);
+
+    if (index === -1) {
+      console.log('Error: Product not found');
+      return;
+    }
+
+    // Actualizar el producto sin modificar su ID
+    this.products[index] = {
+      ...this.products[index],
+      ...updatedProduct,
+      id: this.products[index].id,
+    };
+
+    console.log('Prod actualizado!');
+  }
+
+  // Eliminar un producto por su ID
+  deleteProduct(id) {
+    const index = this.products.findIndex((p) => p.id === id);
+
+    if (index === -1) {
+      console.log('Error: Prod no encontrado');
+      return;
+    }
+
+    // Eliminar el producto del arreglo
+    this.products.splice(index, 1);
+    console.log('Prod borrado!');
   }
 }
 
@@ -73,4 +107,20 @@ manager.addProduct({
   code: 'AAA003',
   stock: 10
 })
-manager.getProducts()
+
+console.log('Productos antes de la actualizacion:');
+manager.getProducts();
+
+manager.updateProduct(2, {
+  title: 'Toyota actualizado',
+  price: 2000000,
+  stock: 5,
+});
+
+console.log('Productos despues de la actualizacion:');
+manager.getProducts();
+
+manager.deleteProduct(1);
+
+console.log('Productos despues de borrar:');
+manager.getProducts();
