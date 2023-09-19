@@ -51,6 +51,8 @@ class ProductManager {
 
     // Agregar productos al arreglo
     this.products.push(product);
+    
+    // Guardar los datos en el archivo
     this.saveDataToFile();
 
     console.log('Product added!');
