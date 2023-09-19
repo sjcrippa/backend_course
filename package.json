@@ -4,8 +4,10 @@
   "description": "Acquired knowledge:",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node index.js",
+    "start": "nodemon index.js"
   },
+  "types": "module",
   "author": "",
   "license": "ISC",
   "dependencies": {

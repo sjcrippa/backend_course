@@ -1,9 +1,30 @@
+const fs = require('fs');
+const dataFilePath = 'products.json';
+
 class ProductManager {
   constructor() {
     this.products = [];
+    this.loadDataFromFile();
   }
 
-  static nextProductId = 1
+  static nextProductId = 1;
+
+  // Metodo para guardar los datos en el archivo:
+  saveDataToFile() {
+    fs.writeFileSync(dataFilePath, JSON.stringify(this.products, null, 2), 'utf8');
+  }
+
+  // Metodo para cargar los datos en el archivo:
+  loadDataFromFile() {
+    try {
+      const data = fs.readFileSync(dataFilePath, 'utf8');
+      this.products = JSON.parse(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      this.saveDataToFile();
+    }
+  }
 
   addProduct(product) {
     // Validar que todos los campos sean obligatorios
@@ -30,6 +51,8 @@ class ProductManager {
 
     // Agregar productos al arreglo
     this.products.push(product);
+    this.saveDataToFile();
+
     console.log('Product added!');
   }
 
@@ -43,7 +66,7 @@ class ProductManager {
   getProductById(id) {
     const product = this.products.find((p) => p.id === id);
     if (!product) {
-      console.log('Error: Product not found');
+      console.log('Error: Producto no encontrado');
     }
     return product;
   }
@@ -52,7 +75,7 @@ class ProductManager {
     const index = this.products.findIndex((p) => p.id === id);
 
     if (index === -1) {
-      console.log('Error: Product not found');
+      console.log('Error: Producto no encontrado');
       return;
     }
 
@@ -62,6 +85,9 @@ class ProductManager {
       ...updatedProduct,
       id: this.products[index].id,
     };
+
+    // Guardar los datos en el archivo
+    this.saveDataToFile();
 
     console.log('Prod actualizado!');
   }
@@ -77,10 +103,13 @@ class ProductManager {
 
     // Eliminar el producto del arreglo
     this.products.splice(index, 1);
+
+    // Guardar los datos en el archivo
+    this.saveDataToFile();
+
     console.log('Prod borrado!');
   }
 }
-
 // Prueba de uso:
 const manager = new ProductManager
 manager.addProduct({

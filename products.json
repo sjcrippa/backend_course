@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Toyota actualizado",
+    "description": "Supra",
+    "price": 2000000,
+    "thumbnail": "imagen.jpg",
+    "code": "AAA002",
+    "stock": 5,
+    "id": 2
+  },
+  {
+    "title": "Renault",
+    "description": "Clio",
+    "price": 1233,
+    "thumbnail": "imagen.jpg",
+    "code": "AAA003",
+    "stock": 10,
+    "id": 3
+  }
+]
