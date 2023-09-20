@@ -1,4 +1,4 @@
-const fs = require('fs');
+import { writeFileSync, readFileSync } from 'fs';
 const dataFilePath = 'products.json';
 
 class ProductManager {
@@ -11,13 +11,13 @@ class ProductManager {
 
   // Metodo para guardar los datos en el archivo:
   saveDataToFile() {
-    fs.writeFileSync(dataFilePath, JSON.stringify(this.products, null, 2), 'utf8');
+    writeFileSync(dataFilePath, JSON.stringify(this.products, null, 2), 'utf8');
   }
 
   // Metodo para cargar los datos en el archivo:
   loadDataFromFile() {
     try {
-      const data = fs.readFileSync(dataFilePath, 'utf8');
+      const data = readFileSync(dataFilePath, 'utf8');
       this.products = JSON.parse(data);
     } catch (error) {
       console.log(error);

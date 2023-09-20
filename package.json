@@ -2,12 +2,12 @@
   "name": "backend-course-ch",
   "version": "1.0.0",
   "description": "Acquired knowledge:",
-  "main": "index.js",
+  "type": "module",
+  "main": "app.js",
   "scripts": {
     "dev": "node index.js",
     "start": "nodemon index.js"
   },
-  "types": "module",
   "author": "",
   "license": "ISC",
   "dependencies": {
