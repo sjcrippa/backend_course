@@ -1,7 +1,7 @@
 import { writeFileSync, readFileSync } from 'fs';
 const dataFilePath = 'products.json';
 
-class ProductManager {
+export class ProductManager {
   constructor() {
     this.products = [];
     this.loadDataFromFile();
