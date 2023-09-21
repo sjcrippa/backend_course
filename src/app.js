@@ -10,7 +10,7 @@ const NewProductManager = new ProductManager();
 app.use(json());
 
 // Ruta para obtener todos los productos
-app.get('/products', (req, res) => {
+app.get('/products', async (req, res) => {
   const limit = parseInt(req.query.limit);
   if (!isNaN(limit)) {
     const limitedProducts = NewProductManager.getProducts().slice(0, limit);
@@ -21,7 +21,7 @@ app.get('/products', (req, res) => {
 });
 
 // Ruta para obtener un producto por su ID
-app.get('/products/:pid', (req, res) => {
+app.get('/products/:pid', async (req, res) => {
   const productId = parseInt(req.params.pid);
   const product = NewProductManager.getProductById(productId);
   if (product) {
@@ -32,5 +32,5 @@ app.get('/products/:pid', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Servidor Express en funcionamiento en el puerto ${port}`);
+  console.log(`Servidor Express funcionando en el puerto ${port}`);
 });
