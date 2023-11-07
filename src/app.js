@@ -1,6 +1,7 @@
 import express, { json } from 'express';
 
 import { ProductManager } from './functions/productManager.js';
+import productsRouter from './routes/products.router.js'
 
 const app = express();
 const port = 8080;
@@ -8,9 +9,10 @@ const port = 8080;
 const NewProductManager = new ProductManager();
 
 app.use(json());
+app.use(express.static('../public'))
 
 // Ruta para obtener todos los productos
-app.get('/products', async (req, res) => {
+/* app.get('/products', async (req, res) => {
   const limit = parseInt(req.query.limit);
   if (!isNaN(limit)) {
     const limitedProducts = NewProductManager.getProducts().slice(0, limit);
@@ -18,7 +20,10 @@ app.get('/products', async (req, res) => {
   } else {
     res.json(NewProductManager.getProducts());
   }
-});
+}); */
+
+// Usando rutas:
+app.use('/products', productsRouter);
 
 // Ruta para obtener un producto por su ID
 app.get('/products/:pid', async (req, res) => {
