@@ -5,6 +5,11 @@ class ProductManager {
   }
 
   addProduct(title, description, price, thumbnail, stock, code) {
+    //validacion para que todos los productos sean obligatorios:
+    if(!title || !description || !stock) {
+      console.log('todos los campos son obligatorios');
+      return
+    }
     const newProduct = {
       id: this.id++,
       title,
@@ -27,6 +32,7 @@ class ProductManager {
 }
 
 const manager = new ProductManager()
+manager.addProduct('Caca', 'pedo', 123, 'url', 1, 'code')
 manager.addProduct('Title', 'Description', 123, 'url', 1, 'code')
-manager.addProduct('Title', 'Description', 123, 'url', 1, 'code')
+manager.addProduct('Title', 'Description', 123, 'url', 'code')
 manager.getProducts()
