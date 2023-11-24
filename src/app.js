@@ -1,7 +1,10 @@
+const fs = require('fs')
+
 class ProductManager {
   constructor() {
     this.products = []
     this.id = 1
+    this.path = path
   }
 
   addProduct(title, description, price, thumbnail, code, stock) {
@@ -34,6 +37,14 @@ class ProductManager {
     const productById = this.products.find(prod => prod.id === idProduct)
     if (productById) return console.log(productById);
     if (!productById) return console.log('Product not found');
+  }
+
+  updateProduct() {
+
+  }
+
+  deleteProduct() {
+
   }
 }
 
