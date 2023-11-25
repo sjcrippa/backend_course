@@ -1,10 +1,7 @@
-const fs = require('fs')
-
 class ProductManager {
   constructor() {
     this.products = []
     this.id = 1
-    this.path = path
   }
 
   addProduct(title, description, price, thumbnail, code, stock) {

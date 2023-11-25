@@ -2,7 +2,7 @@
   "name": "backend-course-ch",
   "version": "1.0.0",
   "description": "Back-End Course",
-  "type": "module",
+  "type": "commonjs",
   "main": "./src/app.js",
   "scripts": {
     "start": "node app.js"
