@@ -1,4 +1,4 @@
-const fs = require('fs')
+import fs from 'node:fs'
 
 class ProductManager {
   constructor(path) {
@@ -85,7 +85,7 @@ class ProductManager {
     if (prodToDelete !== -1) {
       this.products.splice(prodToDelete, 1)
       console.log('Product deleted');
-      
+
     } else {
       console.log('Product not found');
     }
