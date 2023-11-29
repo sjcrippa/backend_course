@@ -5,7 +5,6 @@ class ProductManager {
     this.products = []
     this.id = 1
     this.path = path
-    this.loadFromFile()
   }
 
   async saveToFile() {
@@ -18,16 +17,6 @@ class ProductManager {
     }
   }
 
-  async loadFromFile() {
-    try {
-      const data = await fs.promises.readFile(this.path, 'utf-8')
-      this.products = JSON.parse(data)
-    }
-    catch (error) {
-      console.log('Error reading file: ', error.message);
-    }
-  }
-
   async addProduct(title, description, price, thumbnail, code, stock) {
     // validacion para que todos los productos sean obligatorios:
     if (!title || !description || !price || !thumbnail || !code || !stock) {
@@ -36,7 +25,7 @@ class ProductManager {
 
     // validacion para que no se repita el code:
     const productExist = this.products.find(prod => prod.code === code)
-    if (productExist) return console.log(`Product with the code ${code} already exist`);
+    if (productExist) return console.error(`WARNING! Product with the code ${code} already exist`);
 
     const newProduct = {
       id: this.id++,
@@ -48,17 +37,33 @@ class ProductManager {
       stock
     }
     this.products.push(newProduct)
-    this.saveToFile()
+    await this.saveToFile()
   }
 
-  getProducts() {
-    return this.products
+  async getProducts() {
+    try {
+      const products = await fs.promises.readFile('./products.json', 'utf-8')
+      return console.log(products);;
+    }
+    catch (error) {
+      console.log('Error reading file: ', error.message);
+    }
   }
 
-  getProductsById(idProduct) {
-    const productById = this.products.find(prod => prod.id === idProduct)
-    if (productById) return console.log(productById);
-    if (!productById) return console.log('Product not found');
+  async getProductsById(idProduct) {
+    try {
+      const data = await fs.promises.readFile(this.path, 'utf-8');
+      const productsFromFile = JSON.parse(data);
+
+      const prodById = productsFromFile.find(prod => prod.id === idProduct);
+      if (prodById) {
+        console.log(prodById);
+      } else {
+        console.log('Error getting id: Product not found.');
+      }
+    } catch (error) {
+      console.log('Error reading file: ', error.message);
+    }
   }
 
   async updateProduct(id, updatedFields) {
@@ -66,17 +71,17 @@ class ProductManager {
 
     if (prodToUpdate) {
       Object.assign(prodToUpdate, updatedFields)
+      await this.saveToFile()
+      console.log('Product updated successfully.');
 
       try {
         await fs.promises.writeFile('./products.json', JSON.stringify(this.products, null, 2))
-        console.log('Product updated successfully.');
       } catch (error) {
         console.log('Error updating product:', error.message);
       }
     } else {
-      console.log('Product not found');
+      console.log('Error with update: Product not found');
     }
-    this.saveToFile()
   }
 
   async deleteProduct(id) {
@@ -84,28 +89,30 @@ class ProductManager {
 
     if (prodToDelete !== -1) {
       this.products.splice(prodToDelete, 1)
+      await this.saveToFile()
       console.log('Product deleted');
 
     } else {
-      console.log('Product not found');
+      console.log('Error deleting: Product not found');
     }
   }
-
 }
 
 const path = 'products.json'
 const manager = new ProductManager(path)
 
 manager.addProduct('T-shirt', 'Blue', 250, 'url/of/product', 'AAA001', 1)
-manager.addProduct('Hoodie', 'Red', 170, 'url/of/product', 'AAA002', 1)
+manager.addProduct('Snickers', 'Red', 170, 'url/of/product', 'AAA002', 1)
 manager.getProducts()
 
 manager.addProduct('Pants', 'Yellow', 320, 'url/of/product', 'AAA002', 1) // Repitiendo codigo para que no lo agregue
-manager.addProduct('Boxes', 'Yellow', 320, 'url/of/product', 'AAA003', 1)
+manager.addProduct('Pants', 'Yellow', 320, 'url/of/product', 'AAA003', 1)
+manager.addProduct('Hoodie', 'Green', 740, 'url/of/product', 'AAA004', 1)
 manager.getProducts()
 
-manager.getProductsById(2) // Obteniendo productos mediante ID
+manager.getProductsById(3) // Obteniendo productos mediante ID
 
 manager.updateProduct(1, { title: 'New title', price: 500 }) // actualizando productos
 
 manager.deleteProduct(2) // Eliminando productos segun id
+manager.getProducts()
