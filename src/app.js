@@ -41,11 +41,11 @@ class ProductManager {
 
   async getProducts() {
     try {
-      const products = await fs.promises.readFile('./products.json', 'utf-8')
+      const products = await fs.promises.readFile(this.path, 'utf-8')
       return products;
     }
     catch (error) {
-      console.log('Error reading file: ', error.message);
+      console.log('Error reading file in getProducts: ', error.message);
     }
   }
 
@@ -56,6 +56,7 @@ class ProductManager {
 
       if (prodById) {
         console.log(prodById);
+        return prodById
       } else {
         console.log('Error getting id: Product not found.');
       }
@@ -73,14 +74,14 @@ class ProductManager {
       console.log('Product updated successfully.');
 
       try {
-        await fs.promises.writeFile(`${this.path}`, JSON.stringify(this.products, null, 2))
+        await fs.promises.writeFile(this.path, JSON.stringify(this.products, null, 2))
       } catch (error) {
         console.log('Error updating product:', error.message);
       }
       await this.saveToFile()
 
     } else {
-      console.log('Error with update: Product not found');
+      console.log('Error updating: Product not found');
     }
   }
 
@@ -115,7 +116,7 @@ manager.addProduct('Pants', 'Yellow', 320, 'url/of/product', 'AAA003', 1)
 manager.addProduct('Hoodie', 'Green', 740, 'url/of/product', 'AAA004', 1)
 manager.getProducts()
 
-manager.getProductsById(3) // Obteniendo productos mediante ID
+manager.getProductsById(4) // Obteniendo productos mediante ID
 
 manager.updateProduct(1, { title: 'New title', price: 500 }) // actualizando productos
 
