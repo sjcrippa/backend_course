@@ -97,11 +97,6 @@ class ProductManager {
       console.log('Error deleting: Product not found');
     }
   }
-
-  async readFile() {
-    let resultado = await fs.promises.readFile(this.path, 'utf-8')
-    console.log('Test de lectura: ', resultado);
-  }
 }
 
 const path = 'products.json'
