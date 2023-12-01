@@ -1,4 +1,4 @@
-import fs from 'node:fs'
+import fs, { readFile } from 'node:fs'
 
 class ProductManager {
   constructor(path) {
@@ -37,27 +37,23 @@ class ProductManager {
       stock
     }
     this.products.push(newProduct)
-    await this.saveToFile()
   }
 
   async getProducts() {
     try {
-      const products = JSON.parse(await fs.promises.readFile(`${this.path}`, 'utf-8'))
-      console.log(products);
-      return products
-
+      const products = await fs.promises.readFile('./products.json', 'utf-8')
+      return products;
     }
     catch (error) {
-      console.log('Error reading file in getProducts: ', error.message);
+      console.log('Error reading file: ', error.message);
     }
   }
 
   async getProductsById(idProduct) {
     try {
-      const data = await fs.promises.readFile(`${this.path}`, 'utf-8');
-      const productsFromFile = JSON.parse(data);
+      const data = JSON.parse(await fs.promises.readFile(`${this.path}`, 'utf-8'));
+      const prodById = data.find(prod => prod.id === idProduct);
 
-      const prodById = productsFromFile.find(prod => prod.id === idProduct);
       if (prodById) {
         console.log(prodById);
       } else {
@@ -100,6 +96,11 @@ class ProductManager {
       console.log('Error deleting: Product not found');
     }
   }
+
+  async readFile() {
+    let resultado = await fs.promises.readFile(this.path, 'utf-8')
+    console.log('Test de lectura: ', resultado);
+  }
 }
 
 const path = 'products.json'
@@ -114,9 +115,10 @@ manager.addProduct('Pants', 'Yellow', 320, 'url/of/product', 'AAA003', 1)
 manager.addProduct('Hoodie', 'Green', 740, 'url/of/product', 'AAA004', 1)
 manager.getProducts()
 
-manager.getProductsById(2) // Obteniendo productos mediante ID
+manager.getProductsById(3) // Obteniendo productos mediante ID
 
 manager.updateProduct(1, { title: 'New title', price: 500 }) // actualizando productos
 
 manager.deleteProduct(2) // Eliminando productos segun id
 manager.getProducts()
+
