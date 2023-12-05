@@ -23,7 +23,7 @@ class UserManager {
 
     this.users.push(newUser)
 
-    await fs.promises.mkdir('./files', { recursive: true })
+    await fs.promises.mkdir('./files', {recursive:true})
     await fs.promises.writeFile(path, JSON.stringify(this.users, null, '\t'))
 
   }
