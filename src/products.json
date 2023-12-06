@@ -9,6 +9,15 @@
     "stock": 1
   },
   {
+    "id": 2,
+    "title": "Snickers",
+    "description": "Red",
+    "price": 170,
+    "thumbnail": "url/of/product",
+    "code": "AAA002",
+    "stock": 1
+  },
+  {
     "id": 3,
     "title": "Pants",
     "description": "Yellow",

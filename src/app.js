@@ -98,6 +98,8 @@ class ProductManager {
   }
 }
 
+export default ProductManager
+
 const path = 'products.json'
 const manager = new ProductManager(path)
 
@@ -114,6 +116,6 @@ manager.getProductsById(4) // Obteniendo productos mediante ID
 
 manager.updateProduct(1, { title: 'New title', price: 500 }) // actualizando productos
 
-manager.deleteProduct(2) // Eliminando productos segun id
+manager.deleteProduct() // Eliminando productos segun id
 manager.getProducts()
 

@@ -26,7 +26,7 @@ class UserManager {
       lastname: user.lastname,
       username: user.username,
       password: crypto
-        .createHmac('sha256', salt)
+        .createHmac('sha256', salt) // salt = key
         .update(user.password)
         .digest('hex'),
       salt: salt,
