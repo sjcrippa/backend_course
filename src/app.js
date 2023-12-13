@@ -36,6 +36,7 @@ class ProductManager {
       stock
     }
     this.products.push(newProduct)
+    await this.saveToFile();
   }
 
   async getProducts() {
