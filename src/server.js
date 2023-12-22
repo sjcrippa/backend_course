@@ -53,7 +53,6 @@ app.get('/api/products/:pid', (req, res) => {
 app.post('/api/products', (req, res) => {
   const newProduct = req.body;
   const products = readFromFile(productsPath);
-  console.log(products);
 
   // Validación de campos obligatorios
   const requiredFields = ['title', 'description', 'code', 'price', 'status', 'stock', 'category'];
